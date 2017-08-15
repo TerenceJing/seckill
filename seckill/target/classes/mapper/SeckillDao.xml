@@ -27,6 +27,17 @@
 		limit #{offset},#{limit} <!-- 在偏移量之后取的行数 -->		
 	</select>
    
+   
+   <!-- 秒杀操作优化存储部分 -->
+   <!-- mybatis调用存储过程  id和接口中的方法想偶同，传入参数-->
+   <select id="killByProcedure" statementType="CALLABLE">
+   	call execute_seckill(
+   	#{seckillId,jdbcType=BIGINT,mode=IN},
+   	#{phone,jdbcType=BIGINT,mode=IN},
+   	#{killTime,jdbcType=TIMESTAMP,mode=IN},
+   	#{result,jdbcType=INTEGER,mode=OUT}
+   	 )
+   </select>
 </mapper>
     
     
